@@ -15,8 +15,8 @@ namespace PdfViewer
     {
         PdfViewerControl pdfViewer;
 
-        Tuple<int, int> firstTarget = new Tuple<int, int>(420, 750);
-        Tuple<int, int> secondTarget = new Tuple<int, int>(420, 750);
+        Tuple<int, int> firstTarget = new Tuple<int, int>(408, 700);
+        Tuple<int, int> secondTarget = new Tuple<int, int>(300, 650);
 
 
         public MainWindow()
@@ -70,10 +70,20 @@ namespace PdfViewer
                 pdfViewer.SetPageNumberCommand.Execute(1);
             }
 
-            pdfViewer.ScrollToHorizontalOffset(420);
-            pdfViewer.ScrollToVerticalOffset(750);
+
+            var position = pdfViewer.ConvertPixelToDocumentPosition(new Point(firstTarget.Item1 * (96 / 72), firstTarget.Item2 * (96 / 72)));
 
             pdfViewer.ZoomFactor = 3F;
+
+            //pdfViewer.CursorMode = CursorModeType.MarqueeZoom;
+
+
+            pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
+
+            //pdfViewer.ScrollToHorizontalOffset(firstTarget.Item1);
+            //pdfViewer.ScrollToVerticalOffset(firstTarget.Item2);
+
+
         }
 
         private void GoToSecondTargetCommand(object sender, RoutedEventArgs e)
@@ -83,10 +93,17 @@ namespace PdfViewer
                 pdfViewer.SetPageNumberCommand.Execute(2);
             }
 
-            pdfViewer.ScrollToHorizontalOffset(300);
-            pdfViewer.ScrollToVerticalOffset(645);
+            var position = pdfViewer.ConvertPixelToDocumentPosition(new Point(secondTarget.Item1 * (96/72), secondTarget.Item2 * (96 / 72)));
 
             pdfViewer.ZoomFactor = 3F;
+
+            //pdfViewer.CursorMode = CursorModeType.MarqueeZoom;
+
+
+            pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
+
+            //pdfViewer.ScrollToHorizontalOffset(300);
+            //pdfViewer.ScrollToVerticalOffset(645);           
 
         }
 
@@ -97,8 +114,7 @@ namespace PdfViewer
             if (sender.GetType() == typeof(PdfViewerControl))
             {
                 pdfViewer = sender as PdfViewerControl;
-            }
+            }            
         }
-
     }
 }
