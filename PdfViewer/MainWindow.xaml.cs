@@ -65,13 +65,16 @@ namespace PdfViewer
 
         private void GoToFirstTargetCommand(object sender, RoutedEventArgs e)
         {
+            //pdfViewer.ZoomFactor = 2F;
+
             //if (pdfViewer.SetPageNumberCommand.CanExecute(1))
             //{
             //    pdfViewer.SetPageNumberCommand.Execute(1);
             //}
 
+            pdfViewer.ZoomFactor = 2F;
 
-            var position = new PdfDocumentPosition(1, new PdfPoint(220, 235)); 
+            var position = new PdfDocumentPosition(1, new PdfPoint(234, 240)); 
             //var position = new PdfDocumentPosition(1, new PdfPoint(364, 235)); 
 
             NavigateTo(position);
@@ -92,12 +95,16 @@ namespace PdfViewer
 
         private void GoToSecondTargetCommand(object sender, RoutedEventArgs e)
         {
+
+
             //if (pdfViewer.SetPageNumberCommand.CanExecute(2))
             //{
             //    pdfViewer.SetPageNumberCommand.Execute(2);
             //}
 
-            var position = new PdfDocumentPosition(2, new PdfPoint(160, 390)); 
+            pdfViewer.ZoomFactor = 2F;
+
+            var position = new PdfDocumentPosition(2, new PdfPoint(160, 400)); 
             //var position = new PdfDocumentPosition(2, new PdfPoint(415, 350)); 
 
             NavigateTo(position);
@@ -106,10 +113,14 @@ namespace PdfViewer
 
         private void NavigateTo(PdfDocumentPosition position)
         {
-            // var helper = ((IPdfViewer)pdfViewer).GetDocumentProcessorHelper();
+            
+
+            //var helper = ((IPdfViewer)pdfViewer).GetDocumentProcessorHelper();
+
+
             //var viewer = (DocumentViewerControl)pdfViewer;
-            //var height = viewer.ActualHeight;
-            //var width = viewer.ActualWidth;
+            ////var height = viewer.ActualHeight;
+            ////var width = viewer.ActualWidth;
 
             //var page = viewer.Document.Pages.ToList().First();
 
@@ -130,7 +141,7 @@ namespace PdfViewer
 
             pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.TopLeft);
 
-            pdfViewer.ZoomFactor = 2F;
+            
         }
 
         private void PdfViewerControl_Loaded(object sender, RoutedEventArgs e)
