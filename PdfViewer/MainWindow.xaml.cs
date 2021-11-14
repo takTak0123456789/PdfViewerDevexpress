@@ -1,8 +1,11 @@
-﻿using DevExpress.Xpf.PdfViewer;
+﻿using DevExpress.Pdf;
+using DevExpress.Xpf.DocumentViewer;
+using DevExpress.Xpf.PdfViewer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -14,9 +17,6 @@ namespace PdfViewer
     public partial class MainWindow : Window
     {
         PdfViewerControl pdfViewer;
-
-        Tuple<int, int> firstTarget = new Tuple<int, int>(408, 700);
-        Tuple<int, int> secondTarget = new Tuple<int, int>(300, 650);
 
 
         public MainWindow()
@@ -65,20 +65,24 @@ namespace PdfViewer
 
         private void GoToFirstTargetCommand(object sender, RoutedEventArgs e)
         {
-            if (pdfViewer.SetPageNumberCommand.CanExecute(1))
-            {
-                pdfViewer.SetPageNumberCommand.Execute(1);
-            }
+            //if (pdfViewer.SetPageNumberCommand.CanExecute(1))
+            //{
+            //    pdfViewer.SetPageNumberCommand.Execute(1);
+            //}
 
 
-            var position = pdfViewer.ConvertPixelToDocumentPosition(new Point(firstTarget.Item1 * (96 / 72), firstTarget.Item2 * (96 / 72)));
+            var position = new PdfDocumentPosition(1, new PdfPoint(220, 235)); 
+            //var position = new PdfDocumentPosition(1, new PdfPoint(364, 235)); 
 
-            pdfViewer.ZoomFactor = 3F;
+            NavigateTo(position);
+
+
+            //pdfViewer.ZoomFactor = 3F;
 
             //pdfViewer.CursorMode = CursorModeType.MarqueeZoom;
 
 
-            pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
+            //pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
 
             //pdfViewer.ScrollToHorizontalOffset(firstTarget.Item1);
             //pdfViewer.ScrollToVerticalOffset(firstTarget.Item2);
@@ -88,28 +92,49 @@ namespace PdfViewer
 
         private void GoToSecondTargetCommand(object sender, RoutedEventArgs e)
         {
-            if (pdfViewer.SetPageNumberCommand.CanExecute(2))
-            {
-                pdfViewer.SetPageNumberCommand.Execute(2);
-            }
+            //if (pdfViewer.SetPageNumberCommand.CanExecute(2))
+            //{
+            //    pdfViewer.SetPageNumberCommand.Execute(2);
+            //}
 
-            var position = pdfViewer.ConvertPixelToDocumentPosition(new Point(secondTarget.Item1 * (96/72), secondTarget.Item2 * (96 / 72)));
+            var position = new PdfDocumentPosition(2, new PdfPoint(160, 390)); 
+            //var position = new PdfDocumentPosition(2, new PdfPoint(415, 350)); 
 
-            pdfViewer.ZoomFactor = 3F;
-
-            //pdfViewer.CursorMode = CursorModeType.MarqueeZoom;
-
-
-            pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
-
-            //pdfViewer.ScrollToHorizontalOffset(300);
-            //pdfViewer.ScrollToVerticalOffset(645);           
+            NavigateTo(position);
 
         }
 
-        private void PdfViewerControl_Loaded(object sender, RoutedEventArgs e)
+        private void NavigateTo(PdfDocumentPosition position)
         {
-            
+            // var helper = ((IPdfViewer)pdfViewer).GetDocumentProcessorHelper();
+            //var viewer = (DocumentViewerControl)pdfViewer;
+            //var height = viewer.ActualHeight;
+            //var width = viewer.ActualWidth;
+
+            //var page = viewer.Document.Pages.ToList().First();
+
+            //var pageSize = page.PageSize;
+
+            //var cropBox = ((DevExpress.Xpf.PdfViewer.PdfPageViewModel)page).Page.CropBox;
+
+            //float cropBoxWidth = (float)cropBox.Width;
+            //float cropBoxHeight = (float)cropBox.Height;
+
+            //int x = (int)((position.Point.X / (pdfViewer.ZoomFactor * 0.01)) - (cropBoxWidth / (pdfViewer.ZoomFactor * 0.01) / 2));
+            //int y = (int)((position.Point.Y / (pdfViewer.ZoomFactor * 0.01)) - (cropBoxHeight / (pdfViewer.ZoomFactor * 0.01) / 2));
+
+            //var pixels = pdfViewer.ConvertDocumentPositionToPixel(position);
+
+            //pdfViewer.ScrollToHorizontalOffset(pixels.X);
+            //pdfViewer.ScrollToVerticalOffset(pixels.Y);
+
+            pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.TopLeft);
+
+            pdfViewer.ZoomFactor = 2F;
+        }
+
+        private void PdfViewerControl_Loaded(object sender, RoutedEventArgs e)
+        {            
 
             if (sender.GetType() == typeof(PdfViewerControl))
             {
