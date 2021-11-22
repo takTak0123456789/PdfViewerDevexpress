@@ -56,6 +56,8 @@ namespace PdfViewer
             var pdfViewer = sender as PdfViewerControl;
 
             PdfHitTestResult result = pdfViewer.HitTest(e.GetPosition(pdfViewer));
+
+            MessageBox.Show($"X: '{e.GetPosition(pdfViewer).X}', Y: '{e.GetPosition(pdfViewer).Y}'");
         }
 
         private void OnButtonGetPageSizeClick(object sender, RoutedEventArgs e)
