@@ -1,4 +1,5 @@
-﻿using DevExpress.Pdf;
+﻿using DevExpress.Mvvm.UI;
+using DevExpress.Pdf;
 using DevExpress.Xpf.DocumentViewer;
 using DevExpress.Xpf.PdfViewer;
 using System;
@@ -59,8 +60,18 @@ namespace PdfViewer
 
         private void OnButtonGetPageSizeClick(object sender, RoutedEventArgs e)
         {
-            
-            var dimensions = pdfViewer?.GetPageSize(1);
+            DevExpress.Xpf.DocumentViewer.DocumentViewerPanel panel = LayoutTreeHelper.GetVisualChildren(pdfViewer).OfType<DevExpress.Xpf.DocumentViewer.DocumentViewerPanel>().FirstOrDefault();
+            if (panel != null)
+            {
+                Size currentPageSize = pdfViewer.GetPageSize(pdfViewer.CurrentPageNumber);
+                float dpi = 110f;
+                double pageHeightPixel = currentPageSize.Height * dpi;
+
+                double pageWidthPixel = currentPageSize.Width * dpi;
+
+                MessageBox.Show($"X: '{pageWidthPixel}', Y: '{pageHeightPixel}'");
+            }          
+
         }
 
         private void GoToFirstTargetCommand(object sender, RoutedEventArgs e)
@@ -74,21 +85,11 @@ namespace PdfViewer
 
             pdfViewer.ZoomFactor = 2F;
 
-            var position = new PdfDocumentPosition(1, new PdfPoint(234, 240)); 
-            //var position = new PdfDocumentPosition(1, new PdfPoint(364, 235)); 
+            pdfViewer.Dispatcher.BeginInvoke(new Action(() => {
+                var position = new PdfDocumentPosition(1, new PdfPoint(234, 240));
 
-            NavigateTo(position);
-
-
-            //pdfViewer.ZoomFactor = 3F;
-
-            //pdfViewer.CursorMode = CursorModeType.MarqueeZoom;
-
-
-            //pdfViewer.ScrollIntoView(position, DevExpress.Xpf.DocumentViewer.ScrollIntoViewMode.Edge);
-
-            //pdfViewer.ScrollToHorizontalOffset(firstTarget.Item1);
-            //pdfViewer.ScrollToVerticalOffset(firstTarget.Item2);
+                NavigateTo(position);
+            }), System.Windows.Threading.DispatcherPriority.Background);
 
 
         }
@@ -103,12 +104,11 @@ namespace PdfViewer
             //}
 
             pdfViewer.ZoomFactor = 2F;
+            pdfViewer.Dispatcher.BeginInvoke(new Action(() => {
+                var position = new PdfDocumentPosition(2, new PdfPoint(160, 400));
 
-            var position = new PdfDocumentPosition(2, new PdfPoint(160, 400)); 
-            //var position = new PdfDocumentPosition(2, new PdfPoint(415, 350)); 
-
-            NavigateTo(position);
-
+                NavigateTo(position);
+            }), System.Windows.Threading.DispatcherPriority.Background);
         }
 
         private void NavigateTo(PdfDocumentPosition position)
