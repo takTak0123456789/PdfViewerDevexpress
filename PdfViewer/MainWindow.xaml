@@ -21,6 +21,11 @@
             <RowDefinition
                 Height="Auto"></RowDefinition>
             <RowDefinition
+                Height="Auto">
+            </RowDefinition>
+            <RowDefinition
+                Height="Auto"></RowDefinition>
+            <RowDefinition
                 Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -63,6 +68,10 @@
                     Height="Auto"></RowDefinition>
                 <RowDefinition
                     Height="Auto"></RowDefinition>
+                <RowDefinition
+                    Height="Auto"></RowDefinition>
+                <RowDefinition
+                    Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Button
@@ -87,6 +96,22 @@
                 Click="OnButtonGetPageSizeClick"
                 Margin="0, 15, 0, 0">
                 GetPageSize 
+            </Button>
+
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                Click="OnButtonScrollToFirstPageClick"
+                Margin="0, 15, 0, 0">
+                Scroll to First Page
+            </Button>
+
+            <Button
+                Grid.Row="4"
+                Grid.Column="1"
+                Click="OnButtonScrollToSecondPageClick"
+                Margin="0, 15, 0, 0">
+                Scroll to Second Page
             </Button>
 
         </Grid>

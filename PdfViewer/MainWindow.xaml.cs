@@ -154,5 +154,14 @@ namespace PdfViewer
                 pdfViewer = sender as PdfViewerControl;
             }            
         }
+
+        private void OnButtonScrollToFirstPageClick(object sender, RoutedEventArgs e)
+        { 
+        }
+
+        private void OnButtonScrollToSecondPageClick(object sender, RoutedEventArgs e)
+        {
+        }
+
     }
 }
